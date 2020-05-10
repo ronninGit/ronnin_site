@@ -1,6 +1,6 @@
 # ronnin_site
-this is the main site
 
+develop branch
 mkdir src
 django-admin startproject ronnin-site .
 cd ronnin-site
