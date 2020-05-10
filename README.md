@@ -1,13 +1,17 @@
 # ronnin_site
 
+pip install djangorestframework
 develop branch
 mkdir src
+cd src
 django-admin startproject ronnin-site .
 cd ronnin-site
 python manage.py startapp users
 code .
 cntrl shift p > select python interpreter
 open terminal in vscode
+
+>settings.py
 add to INSTALLED_APPS at the end  
 
 'rest_framework',
@@ -20,7 +24,7 @@ add to INSTALLED_APPS at the end
 
 >models.py
 
-from django.contrib.auth.models import AbstracUser
+from django.contrib.auth.models import AbstractUser
 
 class CustomUser(AbstractUser):
     pass
@@ -30,6 +34,7 @@ class CustomUser(AbstractUser):
 at the end
 AUTH_USER_MODEL = "users.CustomUser"
 
+moify this
 LANGUAGE_CODE = 'es-co'
 TIME_ZONE = 'America/Bogota'
 
@@ -37,28 +42,26 @@ TIME_ZONE = 'America/Bogota'
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from user.models import CustomUser
+from users.models import CustomUser
 
 class CustomUserAdmin(UserAdmin):
     # add_form = "esto es para adicionar nuevos campos"
     # form = 
     model = CustomUser
-    list_display = ["username","email", "is"]
+    list_display = ["username","email", "is_staff"]
 
 admin.site.register(CustomUser,CustomUserAdmin)
 
 >console
 python manage.py makemigrations
+python manage.py migrate
 python manage.py createsuperuser
 
-pip install django-rest-auth
-pip install django-allauth
-pip install django-registration
-pip install django-crispy-forms
+pip install django-rest-auth django-allauth django-registration django-crispy-forms
 
 >settings.py
 
-'django.contri.sites,
+'django.contri.sites',
 'allauth',
 'allauth.account',
 'allauth.socialaccount',
@@ -82,6 +85,8 @@ python  manage.py migrate
 
 add to urlpatterns
 
-path("api-auth/", incude("rest_framework.urls")),
-path("api/rest-auth", incude("rest_auth.urls")),
-path("api/rest-auth/registration", incude("rest_auth.registration.urls")),
+from django.urls import path, include
+
+path("api-auth/", include("rest_framework.urls")),
+path("api/rest-auth", include("rest_auth.urls")),
+path("api/rest-auth/registration", include("rest_auth.registration.urls")),
