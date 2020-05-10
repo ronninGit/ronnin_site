@@ -1,0 +1,14 @@
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>Crea tu Ronnin cuenta</h3>
+<div class="registration-form-container">
+    <form method="POST">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-sm btn-outline-primary">Create Account</button>
+    </form>
+</div>
+
+
+</form>
+{% endblock %}
