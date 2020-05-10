@@ -87,6 +87,45 @@ add to urlpatterns
 
 from django.urls import path, include
 
-path("api-auth/", include("rest_framework.urls")),
-path("api/rest-auth", include("rest_auth.urls")),
-path("api/rest-auth/registration", include("rest_auth.registration.urls")),
+    path("accounts/", include("django.contrib.auth.urls")),
+    path("api-auth/", include("rest_framework.urls")),
+    path("api/rest-auth", include("rest_auth.urls")),
+    path("api/rest-auth/registration", include("rest_auth.registration.urls")),
+
+create users/forms.py
+>forms.py
+from django_registration.forms import RegistrationForm
+from users.models import CustomUser
+
+class CustomeUserForm(RegistrationForm):
+    class Meta(RegistrationForm.Meta):
+        model = CustomUser
+
+>urls.py
+from django_registration.backends.one_step.views import RegistrationView
+from users.forms import CustomeUserForm
+
+    path("accounts/", include("django_registration.backends.one_step.urls")),
+    #login user
+    path("accounts/", include("django.contrib.auth.urls")),
+    #login web restapi
+    path("api-auth/", include("rest_framework.urls")),
+    #login restapi
+    path("api/rest-auth", include("rest_auth.urls")),
+    #register restapi
+    path("api/rest-auth/registration", include("rest_auth.registration.urls")),
+
+>settings.py
+
+LOGIN_URL = "accounts/login"
+LOGIN_REDIRECT_URL="/"
+LOGOUT_REDIRECT_URL="/"
+# Static files (CSS, JavaScript, Images)
+
+modify TEMPLATES 
+
+'DIRS': [os.path.join(BASE_DIR, 'templates')]
+
+Create src/templates/django_registration folder
+Create src/templates/registration folder
+Create src/templates/auth_layout.html file

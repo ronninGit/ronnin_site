@@ -38,14 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+
+    'rest_framework',
+    'rest_framework.authtoken',
+
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+
     'rest_auth',
     'rest_auth.registration',
+
     'crispy_forms',
-    'rest_framework',
-    'rest_framework.authtoken',
 
     'users'
 ]
@@ -65,7 +69,7 @@ ROOT_URLCONF = 'ronnin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -124,7 +128,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-
+LOGIN_URL = "accounts/login"
+LOGIN_REDIRECT_URL="/"
+LOGOUT_REDIRECT_URL="/"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -132,7 +138,7 @@ STATIC_URL = '/static/'
 
 AUTH_USER_MODEL = "users.CustomUser"
 
-CRISPY_TEMPLATE_PACK = "boostrap4"
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 #django.contrib.sites
 SITE_ID = 1
 #django-allauth
